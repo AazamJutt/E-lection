@@ -1,0 +1,12 @@
+{
+  "screens": {
+    "dashboard": "Dashboard",
+    "analytics": "Analytics"
+  },
+  "title": {
+    "voteCasted": {
+      "success": "Vote Casted",
+      "error": "Error Casting vote"
+    }
+  }
+}
