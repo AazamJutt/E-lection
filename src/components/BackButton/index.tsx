@@ -1,14 +1,11 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Avatar } from "react-native-paper";
+import { styles } from "./style";
 
 interface BackButtonProps {
   goBack: () => void;
 }
-
-type Styles = {
-  container: ViewStyle;
-};
 
 export default function BackButton({ goBack }: BackButtonProps) {
   return (
@@ -17,10 +14,3 @@ export default function BackButton({ goBack }: BackButtonProps) {
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create<Styles>({
-  container: {
-    padding: 10,
-    left: 4,
-  },
-});

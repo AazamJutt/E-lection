@@ -1,9 +1,7 @@
-import { Avatar, Card, Text } from "react-native-paper";
-import { StyleSheet, TextStyle, ViewStyle } from "react-native";
 import React from "react";
-import Button from "./Button";
-import { Candidate } from "../models/Candidate";
-import { theme } from "../core/theme";
+import { Avatar, Button, Card, Text } from "react-native-paper";
+import { Candidate } from "../../models/Candidate";
+import { styles } from "./style";
 
 interface LeftContentProps {
   imageUrl: string;
@@ -26,10 +24,6 @@ interface CandidateProps {
   setSelectedCandidate: (candidate: Candidate) => void;
 }
 
-type Styles = {
-  container: ViewStyle;
-  text: TextStyle;
-};
 
 const CandidateTile = ({
   candidate,
@@ -57,17 +51,5 @@ const CandidateTile = ({
     </Card>
   );
 };
-const styles = StyleSheet.create<Styles>({
-  container: {
-    backgroundColor: "transparent",
-    borderColor: theme.colors.text,
-    borderRadius: 10,
-    borderWidth: 0.5,
-    marginBottom: 10,
-  },
-  text: {
-    fontSize: 20,
-  },
-});
 
 export default CandidateTile;

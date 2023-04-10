@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { licenseValidtor } from "../helpers/validators";
+import { licenseValidtor } from "../../helpers/validators";
 import { TextInput, TextInputProps } from "react-native-paper";
 
 interface LicenseInputProps extends TextInputProps {
@@ -13,23 +13,25 @@ const LicenseInput = ({ license, setLicense, ...rest }: LicenseInputProps) => {
   function handleTextChange(value: string) {
     let formattedText = value;
     if (value.length !== license.length - 1) {
-      formattedText = formatText(value);
+      formattedText = formatLicense(value);
     }
     setLicense(formattedText);
     setError(licenseValidtor(formattedText));
   }
-
-  const formatText = (value: string) => {
+  const formatLicense = (value: string) => {
     const cleanValue = value.toUpperCase().replace(/[^A-Z\d]/g, "");
-    const firstPart = cleanValue.substring(0, 4);
-    const secondPart = cleanValue.substring(4, 7);
-    const thirdPart = cleanValue.substring(7, 9);
-    const fourthPart = cleanValue.substring(9, 12);
-    const fifthPart = cleanValue.substring(12);
 
-    return `${firstPart}-${secondPart ? `${secondPart}-` : ""}${
-      thirdPart ? `${thirdPart}-` : ""
-    }${fourthPart ? `${fourthPart}-` : ""}${fifthPart}`;
+    const parts: string[] = [];
+    let lastIndex = 0;
+
+    [4, 7, 9, 12, 16].forEach((index) => {
+      if (cleanValue.length > lastIndex) {
+        parts.push(cleanValue.substring(lastIndex, index));
+        lastIndex = index;
+      }
+    });
+
+    return parts.join("-");
   };
 
   return (

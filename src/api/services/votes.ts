@@ -1,7 +1,8 @@
 import axios from "axios";
 import { CastVotePayload } from "../types/votes";
+import { API_BASE_URL } from "@env";
 
-const VOTING_API_URL = "http://localhost:3000/votes";
+const VOTING_API_URL = API_BASE_URL + "/votes";
 
 const VOTING_API = {
   // GET all votes:
