@@ -46,6 +46,14 @@ const Dashboard = ({ navigation }: any) => {
       displayDialog();
     }
   };
+  const rednerItem = ({ item }: { item: Candidate }) => (
+    <CandidateTile
+      key={item.id}
+      candidate={item}
+      showModal={showModal}
+      setSelectedCandidate={setSelectedCandidate}
+    />
+  );
   return (
     <AppLayout>
       <Header title={Locales.screens.dashboard} />
@@ -70,14 +78,7 @@ const Dashboard = ({ navigation }: any) => {
           style={{ padding: 20 }}
           data={candidateList}
           keyExtractor={(item: Candidate) => item.id.toString()}
-          renderItem={({ item }: { item: Candidate }) => (
-            <CandidateTile
-              key={item.id}
-              candidate={item}
-              showModal={showModal}
-              setSelectedCandidate={setSelectedCandidate}
-            />
-          )}
+          renderItem={rednerItem}
         />
       )}
       <Alert
