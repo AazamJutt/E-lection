@@ -5,26 +5,10 @@ import { Provider } from "react-native-paper";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { theme } from "./src/core/theme";
-import { Analytics, Dashboard } from "./src/screens";
-import Locales from "./src/locales/en.json";
+import { Screen, SCREENS } from "./src/constants/screens";
 
 const Stack = createStackNavigator();
 
-type Screen = {
-  name: string;
-  component: React.ComponentType<any>;
-};
-
-const SCREENS: Screen[] = [
-  {
-    name: Locales.screens.dashboard,
-    component: Dashboard,
-  },
-  {
-    name: Locales.screens.analytics,
-    component: Analytics,
-  },
-];
 const App = () => {
   return (
     <Provider theme={theme}>

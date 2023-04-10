@@ -15,6 +15,7 @@
     "expo": "^48.0.10",
     "react": "18.2.0",
     "react-native": "0.71.6",
+    "react-native-dotenv": "^3.4.8",
     "react-native-paper": "^4.4.1",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.2",

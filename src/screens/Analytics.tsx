@@ -2,15 +2,14 @@ import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
-
-import AnalyticsTile from "../components/AnalyticsTile";
-import Header from "../components/Header";
-import useAnalyticsList from "../hooks/useAnalyticsList";
 import useCandidateList from "../hooks/useCandidateList";
-import AppLayout from "../layouts/AppLayout";
-import { Analytic } from "../models/Analytic";
+import useAnalyticsList from "../hooks/useAnalyticsList";
 import { Candidate } from "../models/Candidate";
 import Locales from "../locales/en.json";
+import AppLayout from "../layouts/AppLayout";
+import { Analytic } from "../models/Analytic";
+import AnalyticsTile from "../components/AnalyticsTile";
+import Header from "../components/Header";
 
 const Analytics = () => {
   const navigation = useNavigation();
@@ -28,6 +27,20 @@ const Analytics = () => {
     }
   }, [analyticsList]);
 
+  const renderItem = ({ item }: { item: Analytic }) => {
+    let candidate = findCandidate(item.candidateId);
+    const percentage = getPercentage(item.count);
+    return candidate ? (
+      <AnalyticsTile
+        candidate={candidate}
+        count={item.count}
+        percentage={percentage}
+      />
+    ) : (
+      <></>
+    );
+  };
+
   return (
     <AppLayout>
       <Header
@@ -40,19 +53,7 @@ const Analytics = () => {
         <FlatList
           data={analyticsList}
           keyExtractor={(item: Analytic) => item.candidateId.toString()}
-          renderItem={({ item }: { item: Analytic }) => {
-            let candidate = findCandidate(item.candidateId);
-            const percentage = getPercentage(item.count);
-            return candidate ? (
-              <AnalyticsTile
-                candidate={candidate}
-                count={item.count}
-                percentage={percentage}
-              />
-            ) : (
-              <></>
-            );
-          }}
+          renderItem={renderItem}
         />
       )}
     </AppLayout>
@@ -60,5 +61,3 @@ const Analytics = () => {
 };
 
 export default Analytics;
-
-const styles = StyleSheet.create({});
