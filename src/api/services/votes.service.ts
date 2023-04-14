@@ -4,7 +4,7 @@ import { API_BASE_URL } from "@env";
 
 const VOTING_API_URL = API_BASE_URL + "/votes";
 
-const VOTING_API = {
+const VotingService = {
   // GET all votes:
   getAllVotes: () => axios.get(VOTING_API_URL),
 
@@ -22,4 +22,4 @@ const VOTING_API = {
     }),
 };
 
-export default VOTING_API;
+export default VotingService;

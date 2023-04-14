@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Candidate } from "../models/Candidate";
-import CANDIDATE_API from "../api/services/candidates";
+import CandidateService from "../api/services/candidates.service";
 import useData from "./useData";
 
 const useCandidateList = () => {
   const { data: candidateList, isLoading } = useData<Candidate[]>({
-    apiCall: CANDIDATE_API.getAllCandidates,
+    apiCall: CandidateService.getAllCandidates,
     initialValue: [],
   });
 

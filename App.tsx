@@ -5,7 +5,7 @@ import { Provider } from "react-native-paper";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { theme } from "./src/core/theme";
-import { Screen, SCREENS } from "./src/constants/screens";
+import { Screen, SCREENS } from "./src/constants";
 
 const Stack = createStackNavigator();
 

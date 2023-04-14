@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
-import VOTING_API from "../api/services/votes";
+import VotingService from "../api/services/votes.service";
 import Alert from "../components/Alert";
 import CandidateTile from "../components/CandidateTile";
 import CastVoteModal from "../components/CastVoteModal";
@@ -39,7 +39,7 @@ const Dashboard = ({ navigation }: any) => {
     const castVote = async () => {
       if (!selectedCandidate) return;
       try {
-        const response = await VOTING_API.castVote({
+        const response = await VotingService.castVote({
           candidateId: selectedCandidate.id,
           voterId: license,
         });

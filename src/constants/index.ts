@@ -6,6 +6,8 @@ export type Screen = {
   component: React.ComponentType<any>;
 };
 
+export const LICENSE_REGEX = /^[A-Z\d]{4}-[A-Z\d]{3}-[A-Z\d]{2}-[A-Z\d]{3}-[A-Z\d]{1}$/;
+
 export const SCREENS: Screen[] = [
   {
     name: Locales.screens.dashboard,

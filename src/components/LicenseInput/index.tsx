@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { licenseValidtor } from "../../helpers/validators";
 import { TextInput, TextInputProps } from "react-native-paper";
+import { LICENSE_REGEX } from "../../constants";
 
 interface LicenseInputProps extends TextInputProps {
   license: string;
@@ -17,7 +18,6 @@ const LicenseInput = ({
   ...rest
 }: LicenseInputProps) => {
   const [error, setError] = useState("");
-  const regex = /^[A-Z\d]{4}-[A-Z\d]{3}-[A-Z\d]{2}-[A-Z\d]{3}-[A-Z\d]{1}$/;
   const handleTextChange = (value: string) => {
     let formattedText = value;
     if (value.length !== license.length - 1) {
@@ -43,7 +43,7 @@ const LicenseInput = ({
   };
 
   useEffect(() => {
-    setIsValid(regex.test(license));
+    setIsValid(LICENSE_REGEX.test(license));
   }, [license]);
 
   return (
