@@ -6,45 +6,20 @@ const VOTING_API_URL = API_BASE_URL + "/votes";
 
 const VOTING_API = {
   // GET all votes:
-  getAllVotes: async () => {
-    let data = [];
-    try {
-      const response = await axios.get(VOTING_API_URL);
-      data = response.data;
-    } catch (err) {
-      console.error(err);
-    }
-    return data;
-  },
+  getAllVotes: () => axios.get(VOTING_API_URL),
 
   // GET votes by candidate :id
-  getVotesByCandidate: async (candidateId: number) => {
-    let data = [];
-    try {
-      const response = await axios.get(`${VOTING_API_URL}/${candidateId}`);
-      data = response.data;
-    } catch (err) {
-      console.error(err);
-    }
-    return data;
-  },
+  getVotesByCandidate: (candidateId: number) =>
+    axios.get(`${VOTING_API_URL}/${candidateId}`),
 
   // POST cast a new vote
-  castVote: async (payload: CastVotePayload) => {
-    let data = {};
-    try {
-      const response = await axios.post(VOTING_API_URL, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      data = response.data;
-    } catch (err) {
-      console.error(err);
-    }
-    return data;
-  },
+  castVote: (payload: CastVotePayload) =>
+    axios.post(VOTING_API_URL, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }),
 };
 
 export default VOTING_API;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 type UseDataProps<T> = {
-  apiCall: () => Promise<T>;
+  apiCall: () => Promise<any>;
   initialValue: T;
 };
 
@@ -21,7 +21,7 @@ function useData<T>({
     const fetchData = async () => {
       try {
         const response = await apiCall();
-        setData(response);
+        setData(response.data);
       } catch (error) {
         console.error(error);
       } finally {

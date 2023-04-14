@@ -17,6 +17,7 @@ const CastVoteModal = ({
   handleCastVote,
 }: CastVoteModalProps) => {
   const [license, setLicense] = useState<string>("");
+  const [isValid, setIsValid] = useState<boolean>(false);
   const handleCast = () => {
     handleCastVote(license);
     setLicense("");
@@ -45,9 +46,11 @@ const CastVoteModal = ({
               setLicense={setLicense}
               style={styles.input}
               label="Driver's License"
+              setIsValid={setIsValid}
+              isValid={isValid}
               value={license}
             />
-            <Button mode="contained" onPress={handleCast}>
+            <Button disabled={!isValid} mode="contained" onPress={handleCast}>
               Cast Vote
             </Button>
           </View>

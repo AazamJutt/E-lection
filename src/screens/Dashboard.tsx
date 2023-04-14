@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
@@ -15,10 +15,14 @@ import { Candidate } from "../models/Candidate";
 const Dashboard = ({ navigation }: any) => {
   const { candidateList, isLoading } = useCandidateList();
   const [visible, setVisible] = useState<boolean>(false);
-  const [selectedCandidate, setSelectedCandidate] = useState<Candidate>();
+  const [selectedCandidate, setSelectedCandidate] = useState<
+    Candidate | undefined
+  >();
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [voteStatus, setVoteStatus] = useState<"success" | "error">("success");
   const [voteStatusMessage, setVoteStatusMessage] = useState<string>("");
+  const [castPressed, setCastPressed] = useState<boolean>(false);
+  const [license, setLicense] = useState<string>("");
 
   const displayDialog = () => {
     hideModal();
@@ -30,21 +34,35 @@ const Dashboard = ({ navigation }: any) => {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const handleCastVote = async (driverLicense: string) => {
-    hideModal();
-    if (selectedCandidate) {
-      const response: any = await VOTING_API.castVote({
-        candidateId: selectedCandidate.id,
-        voterId: driverLicense,
-      });
-      if (response.error) {
+
+  useEffect(() => {
+    const castVote = async () => {
+      if (!selectedCandidate) return;
+      try {
+        const response = await VOTING_API.castVote({
+          candidateId: selectedCandidate.id,
+          voterId: license,
+        });
+        if (response.data.message) {
+          setVoteStatusMessage(response.data.message);
+          setVoteStatus("success");
+        }
+      } catch (err) {
+        console.error(err);
         setVoteStatus("error");
-      } else {
-        setVoteStatusMessage(response.message);
-        setVoteStatus("success");
+      } finally {
+        displayDialog();
+        setCastPressed(false);
       }
-      displayDialog();
+    };
+    if (castPressed) {
+      hideModal();
+      castVote();
     }
+  }, [castPressed]);
+  const handleCastVote = (driverLicense: string) => {
+    setLicense(driverLicense);
+    setCastPressed(true);
   };
   const rednerItem = ({ item }: { item: Candidate }) => (
     <CandidateTile
